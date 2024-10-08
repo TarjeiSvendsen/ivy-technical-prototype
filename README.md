@@ -6,8 +6,11 @@
 
 # Launch 
 
-## Commandline
+## Full Server
 `uvicorn server_full:app --reload`
+
+## Just API
+`uvicorn server_min:app --reload`
 
 ## Or With Docker
 `docker compose up -d `

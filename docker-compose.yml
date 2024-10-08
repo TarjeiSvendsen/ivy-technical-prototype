@@ -6,6 +6,6 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - 15634:8000
+      - 8076:8000
     environment:
       - IVY_FILTER_PORT = 8000 # Only use if it 
