@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IVY Technical Prototype</title>
+    <link rel="stylesheet" href="static/css/global.css" />
+  </head>
+  <body>
+    <nav></nav>
+    <main>
+      <div class="filter-group">
+        <article>
+          <label for="colour-filter"
+            >Colour Filter
+            <img
+              src="static/img/filter_c.jpeg"
+              alt="Colour Filter Example"
+              width="150px"
+            />
+          </label>
+
+          <input type="radio" name="filter-selection" id="colour-filter" />
+        </article>
+        <article>
+          <label for="bw-filter"
+            >Black & White Filter
+            <img
+              src="static/img/filter_bw.jpeg"
+              alt="Black & White Filter Example"
+              width="150px"
+            />
+          </label>
+
+          <input type="radio" name="filter-selection" id="bw-filter" />
+        </article>
+      </div>
+      <div class="filter-intensity-box">
+        <label for="filter-intensity-slider">Adjust Filter Intensity</label>
+        <input
+          type="range"
+          name="filter-intensity-slider"
+          id="filter-intensity-slider"
+          min="0"
+          ,
+          max="255"
+          value="10"
+        />
+      </div>
+      <div class="image-drop-box">
+        <label for="ivy-image-upload">Drop Image Or Click Here to Select</label>
+
+        <input
+          type="file"
+          name="ivy-image-upload"
+          id="ivy-image-upload"
+          accept=".jpg, .jpeg , .png"
+          onchange="sendImage()"
+        />
+      </div>
+
+      <button onclick="sendImage()">Plant IVY</button>
+    </main>
+  </body>
+
+  <script src="static/js/main.js"></script>
+</html>
