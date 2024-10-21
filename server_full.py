@@ -20,7 +20,7 @@ async def serve_home():
 
 @app.post("/uploadimage/")
 async def create_upload_image(image: UploadFile, filter:str,alpha_strength:int):
-    print(image.content_type)
+    
     match image.content_type:
         case "image/png":
             _extension = "png"
@@ -30,15 +30,18 @@ async def create_upload_image(image: UploadFile, filter:str,alpha_strength:int):
             _extension = "jpg"
         case _:
             _extension = "png"
-    _path = process_image(image.file,{"filter":filter,"alpha_strength":alpha_strength})
+    if filter == None:
+        filter = "c"
+    
+    _path = process_image(image.file,{"filter":filter,"alpha_strength":alpha_strength,"extension":_extension})
     return FileResponse(path=f"results/{_path}.png",filename=image.filename)
 
 
 
 
-def process_image(image_to_process:bytes, filter_attributes: dict):
-    _filter_image = Image.open("filters/filter_c.jpeg")
-    _filter_image.putalpha(filter_attributes["alpha_strength"])
+def process_image(image_to_process:bytes, image_attributes: dict):
+    _filter_image = Image.open(f"filters/filter_{image_attributes["filter"]}.jpeg")
+    _filter_image.putalpha(image_attributes["alpha_strength"])
     _filter_image_w,_filter_image_h = _filter_image.size
     
     _processed_image = Image.open(image_to_process)
@@ -56,7 +59,9 @@ def process_image(image_to_process:bytes, filter_attributes: dict):
 def available_filters() -> list:
     """Not Implemented"""
     filter_path = "filters"
+    replacement_values = {".png": "",".jpg": "",".jpeg":""}
     raw_filters =  os.walk(filter_path)
     final_filters = []
     for filter in raw_filters:
-        final_filters.append(str.replace(filter,"filter_",""))
+        final_filters.append(str.replace(filter,"filter_","").replace("."))
+        

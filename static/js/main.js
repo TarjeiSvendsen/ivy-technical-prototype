@@ -38,17 +38,23 @@ function sendImage() {
     .then((response) => response.blob())
     .then((blob) => URL.createObjectURL(blob))
     // Update image
-    .then((url) => console.log((downloadImage(url,document.getElementById("ivy-image-upload").files[0].name) )))
+    .then((url) =>
+      console.log(
+        downloadImage(
+          url,
+          document.getElementById("ivy-image-upload").files[0].name
+        )
+      )
+    )
     .catch((err) => console.error(err));
 }
 
-function downloadImage(image_url,filename) {
+function downloadImage(image_url, filename) {
   let _download_a = document.createElement("a");
   _download_a.href = image_url;
   _download_a.download = filename;
   _download_a.target = "_blank";
   _download_a.click();
-  
 }
 
 function getSelectedFilter() {
@@ -56,9 +62,14 @@ function getSelectedFilter() {
 
   radioButtons.forEach((radioButton) => {
     if (radioButton.id == "bw-filter") {
-      return "bw-filter";
-    } else if (radioButton.id == "bw-filter") {
-      return "colour-filter";
+      console.log(radioButton.id);
+
+      return "bw";
+    } else if (radioButton.id == "colour-filter") {
+      console.log(radioButton.id);
+
+      return "c";
     }
+    return "c";
   });
 }
